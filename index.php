@@ -24,4 +24,4 @@
 
 
 
-<?php  </html>?>
+<?php  echo "</html>" ?>
