@@ -1,5 +1,6 @@
 <?php
   session_start();
+
   echo "<html
         <head>
            <script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js\"></script>
@@ -12,19 +13,11 @@
   <form id="signUpMenu" >
      <h1>SignUp</h1>
      User Name:<br><input type="text" id="username" name="username"><br><br>
-     Password:<br><input type="text" id="password" name="password"><br><br>
-     <input type="button" id="signUp-button" value="signUp">
+     Password:<br><input type="text" id="password" type="password" name="password"><br><br>
+     <button type="button" id="signUpButton" onclick="signUp()">Sign Up!</button>
   </form>
 
-  <div id="exPost0">
-    <h2>Example Post Look</h2>
-    <p>Post Title:</p>
-    <input type="text" id="exPostTitle0">
-    <p>
-    <label>Text Area</label><br>
-    <textarea id = "myTextArea" rows = "3"  cols = "80">Your text here</textarea>
-    </p>
-  </div>
+
 
 
   <form id="loginMenu" style="display:none;">
