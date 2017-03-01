@@ -21,9 +21,9 @@
   $line = $username.":".$password.":".$public_key.":".$private_key."\n";
 
 
-  // $myfile = fopen("users.txt", "r") or die("Unable to open file!");
-  // $line = $line . fread($myfile,filesize("users.txt"));
-  // fclose($myfile);
+  $myfile = fopen("users.txt", "r") or die("Unable to open file!");
+  $line = $line . fread($myfile,filesize("users.txt"));
+  fclose($myfile);
 
   $myfile = fopen("users.txt", "w");
   fwrite($myfile, $line);
