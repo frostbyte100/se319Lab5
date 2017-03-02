@@ -1,5 +1,5 @@
 <?php
-  session_start();
+
 
   echo "<html
         <head>
@@ -10,21 +10,13 @@
  ?>
 
 
-  <form id="signUpMenu" >
-     <h1>SignUp</h1>
-     User Name:<br><input type="text" id="username" name="username"><br><br>
-     Password:<br><input type="text" id="password" type="password" name="password"><br><br>
-     <button type="button" id="signUpButton" onclick="signUp()">Sign Up!</button>
-  </form>
 
 
-
-
-  <form id="loginMenu" style="display:none;">
+  <form id="loginMenu" >
      <h1>Login</h1>
      User Name:<br><input type="text" id="username" name="username"><br><br>
      Password:<br><input type="text" id="password" name="password"><br><br>
-     <input type="button" id="login-button" value="Login">
+    <button type="button" id="signUpButton" onclick="login()">Login</button>
   </form>
 
 
@@ -55,7 +47,4 @@
 
 
 
-<?php  echo " </body>
- <script src=\"actions.js\"></script>
- </html>"
-?>
+<?php  echo " </body> <script src=\"actions.js\"></script> </html>";?>
