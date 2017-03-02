@@ -14,14 +14,14 @@
   <?php //if(isset($_SESSION["user"])){?>
 
 
-    <div id="user" style="display:none";>lee</div>
-    <div id="lastPostID" style="display:none";>0</div>
+
     <div id="allPost">
       <?php
         $json = file_get_contents("posts.txt");
 
         $json=str_replace('},]',"}]",$json);
         $data = json_decode($json, true);
+        $lastPostID = 0;
         //print_r($data);
         //echo $data;
         $str  = "<table  border=2>";
@@ -34,14 +34,16 @@
           $str .= "<td>".$post["postTitle"]."</td>";
           $str .= "<td>".$post["postDesc"]."</td>";
           $str .= "<td>".$post["postTime"]."</td>";
-          $str .= "<td><button onclick='updatePost(".$post["postID"].")'>Update Post</button></td>";
+          $str .= "<td><button onclick='updatePost(post".$post["postID"].")'>Update Post</button></td>";
+          $lastPostID = $post["postID"];
           $str .= "</tr>";
         }
         $str .= "</table>";
         echo $str;
        ?>
    </div>
-
+   <div id="user" style="display:none";>lee</div>
+   <div id="lastPostID" style="display:none";><?php echo $lastPostID; ?></div>
 
 
 
@@ -52,7 +54,8 @@
        Post Title:<br><input type="text" id="postTitle">
        <p>Text Area</p>
        <textarea id="postDesc" rows = "3" cols = "80">Your text here</textarea>
-       <button type="button"  value="Login">Make a Post</button>
+       <br>
+       <button type="button" onclick="makePost()">Make a Post</button>
     </form>
 
     <button id="send" onclick="send">Send</button>

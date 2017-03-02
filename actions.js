@@ -15,14 +15,15 @@ function makePost(){
 
   var postTime = time.toString();
 
-  var post = {"postID": postID, "user": user, "postTitle":postTitle,"postDesc":postDesc,"postTime":postTime };
-  console.log(info);
+  var post = {"isNew": 1, "postID": postID, "user": user, "postTitle":postTitle,"postDesc":postDesc,"postTime":postTime };
+  console.log(post);
+
   $.ajax({
       url: 'updatePosts.php',
       type: "POST",
       data: post,
       success: function(data) {
-        console.log(data);
+        window.location.href = "http://localhost:8080/se319lab5/viewPosts.php"  ;
       },
       error: function(data) {
           console.log(data);
