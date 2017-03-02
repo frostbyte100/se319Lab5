@@ -6,6 +6,32 @@ $( document ).ready(function() {
 
 
 
+function makePost(){
+  var user = $("#user").text();
+  var postID = parseInt($("#lastPostID").text());
+  var postTitle = $("#postTitle").val();
+  var postDesc = $("#postDesc").val();
+  var time = new Date();
+
+  var postTime = time.toString();
+
+  var post = {"postID": postID, "user": user, "postTitle":postTitle,"postDesc":postDesc,"postTime":postTime };
+  console.log(info);
+  $.ajax({
+      url: 'updatePosts.php',
+      type: "POST",
+      data: post,
+      success: function(data) {
+        console.log(data);
+      },
+      error: function(data) {
+          console.log(data);
+
+      }
+  });
+}
+
+
 function login(){
   console.log("Heer");
   if($("#username").val() == "" || $("#password").val() == ""){
