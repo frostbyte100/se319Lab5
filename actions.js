@@ -7,21 +7,30 @@ $( document ).ready(function() {
 
 
 function login(){
-
+  console.log("Heer");
+  if($("#username").val() == "" || $("#password").val() == ""){
+    alert("You need a username or password");
+    return;
+  }
   var info = {"username": $("#username").val(), "password": $("#password").val() };
-
+  console.log(info);
   $.ajax({
       url: 'checkLogin.php',
       type: "POST",
       data: info,
       success: function(data) {
-        console.log(data);
+        // console.log("call back");
+        // console.log(data);
+        if(data=="False"){
+            window.location.href = "http://localhost:8080/se319lab5/login.php"
+        }else{
+          window.location.href = "http://localhost:8080/se319lab5/viewPosts.php"  ;
+        }
 
-        $("#loginMenu").css("display","none");
-        $("#viewPosts").css("display","block");
       },
       error: function(data) {
-
+          console.log(data);
+          $("#loginMenu").html(data.responseText);
       }
   });
 
@@ -34,7 +43,7 @@ function login(){
 
 function signUp(){
 
-  window.location.href = "http://localhost:8080/se319lab5/login.php"  ;
+  // window.location.href = "http://localhost:8080/se319lab5/login.php"  ;
   // var info = {"username": $("#username").val(), "password": $("#password").val() };
   //
   // $.ajax({

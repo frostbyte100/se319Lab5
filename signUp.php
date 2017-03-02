@@ -52,10 +52,10 @@
     fwrite($myfile, $line);
 
 
-    if ( fclose($myfile))
-    {
-        header("Location: login.php");
-        exit;
-    }
+    fclose($myfile)
+
+    header("Location: login.php");
+    exit;
+
   }
  ?>
