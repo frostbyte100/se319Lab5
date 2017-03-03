@@ -9,8 +9,6 @@
           <body>";
  ?>
 
-
-
   <?php
 
     session_start();
@@ -34,10 +32,19 @@
         foreach ($data as $post){
           // echo $post;
           $str .= "<tr>";
-          $str .= "<td>".$post["postTitle"]."</td>";
-          $str .= "<td>".$post["postDesc"]."</td>";
+          $str .= "<td id='".$post["postID"]."T'>".$post["postTitle"]."</td>";
+          $str .= "<td id='".$post["postID"]."D'>".$post["postDesc"]."</td>";
           $str .= "<td>".$post["postTime"]."</td>";
-          $str .= "<td><button onclick='updatePost(post".$post["postID"].")'>Update Post</button></td>";
+          if($_SESSION["user"]==$post["user"]){
+            $str .= "<td><button onclick=\"seeUpDatePostOption('".$post["postID"]."')\">Update Post</button></td>";
+          }else{
+            if($_SESSION["user"]=="admin"){
+                $str .= "<td><button onclick=\"deletePost('".$post["postID"]."')\">Delete Post</button></td>";
+            }else{
+              $str .= "<td></td>";
+            }
+          }
+
           $lastPostID = $post["postID"];
           $str .= "</tr>";
         }
@@ -50,32 +57,35 @@
 
 
 
-
-   <form id="updatePost"  style="display:none"; >
-      <h1>Make a Post</h1>
-      Post Title:<br><input type="text" id="postTitle">
-      <p>Text Area</p>
-      <textarea id="postDesc" rows = "3" cols = "80">Your text here</textarea>
-      <br>
-      <button type="button" onclick="updatePost()">Update Post</button>
-   </form>
-
     <br/>
-    <form id="makeAPost" >
-       <h1>Make a Post</h1>
-       Post Title:<br><input type="text" id="postTitle">
-       <p>Text Area</p>
-       <textarea id="postDesc" rows = "3" cols = "80">Your text here</textarea>
-       <br>
-       <button type="button" onclick="makePost()">Make a Post</button>
 
+    <?php if($_SESSION["user"]!="admin"){ ?>
+
+      <form id="updatePost"  style="display:none"; >
+         <h2>Update Post</h2>
+         Post Title:<br><input type="text" id="UpostTitle">
+         <p>Post Description</p>
+         <textarea id="UpostDesc" rows = "3" cols = "80">Your text here</textarea>
+         <br>
+         <button type="button" onclick="updatePost()">Update Post</button>
+      </form>
+
+      <button id="postMaker" onclick="showMakePost()">Make a Post</button>
+      <br/>
+      <form id="makeAPost"  style="display:none"; >
+         <h2>Make a Post</h2>
+         Post Title:<br><input type="text" id="postTitle">
+         <p>Post Description</p>
+         <textarea id="postDesc" rows = "3" cols = "80">Your text here</textarea>
+         <br>
+         <button type="button" onclick="makePost()">Make a Post</button>
+      </form>
+    <?php } ?>
+    <br/>
+    <a href="/se319lab5/inbox.php"><input type="button" value="Inbox"></a>
+    <a href="/se319lab5/sendMessage.php"><input type="button" value="Send Message"></a>
+    <input type="button" value="Log Out" onclick="logOut()">
   </div>
-
-  <br><br>
-  <a href="/se319lab5/inbox.php"><input type="button" value="Inbox"></a>
-  <a href="/se319lab5/sendMessage.php"><input type="button" value="Send Message"></a>
-  <input type="button" value="Log Out" onclick="logOut()">
-
 
   <?php }else{?>
     <p>You have not logged in yet!</p>

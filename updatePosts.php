@@ -1,8 +1,8 @@
 <?php
 
 
- $isNew = $_POST["isNew"];
- if($isNew==1){
+ $action = $_POST["action"];
+ if($action==1){
    $postID = $_POST["postID"];
    $user = $_POST["user"];
    $postTitle = $_POST["postTitle"];
@@ -20,7 +20,7 @@
 
    file_put_contents('posts.txt', json_encode($data));
    echo json_encode( $data );
- }else{
+ }else if($action=0){
    $json = file_get_contents("posts.txt");
 
    $json=str_replace('},]',"}]",$json);
@@ -29,6 +29,15 @@
    $postID = $_POST["postID"];
    $data[$postID] = array("postID"=> $_POST["postID"], "user"=> $_POST["user"], "postTitle"=> $_POST["postTitle"], "postDesc"=> $_POST["postDesc"], "postTime"=> $_POST["postTime"]);
 
+   file_put_contents('posts.txt', json_encode($data));
+   echo json_encode( $data );
+ }else if($action==2){
+   $json = file_get_contents("posts.txt");
+
+   $json=str_replace('},]',"}]",$json);
+   $data = json_decode($json, true);
+
+   unset($data[$_POST["postID"]]);
    file_put_contents('posts.txt', json_encode($data));
    echo json_encode( $data );
 
