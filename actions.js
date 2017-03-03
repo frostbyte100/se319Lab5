@@ -1,14 +1,8 @@
-
-
 $( document ).ready(function() {
     console.log( "ready!" );
 });
 
-
 function updatePost(pID){
-
-
-
 
   var user = $("#user").text();
   var postID = parseInt($("#lastPostID").text());
@@ -35,9 +29,6 @@ function updatePost(pID){
   });
 }
 
-
-
-
 function makePost(){
   var user = $("#user").text();
   var postID = parseInt($("#lastPostID").text());
@@ -63,7 +54,6 @@ function makePost(){
       }
   });
 }
-
 
 function login(){
   if($("#username").val() == "" || $("#password").val() == ""){
@@ -94,10 +84,6 @@ function login(){
 
 
 }
-
-
-
-
 
 function signUp(){
 
@@ -133,4 +119,25 @@ function logOut(){
             console.log(data);
         }
     });
+}
+
+function sendMessage(){
+    var fromUser = $("#user").text();
+    var toUser = $("#sendTo").text();
+    var message = $("#messageBody").val();
+    var post = {"From": fromUser, "To": toUser, "Body": message};
+    console.log(post);
+
+    $.ajax({
+        url: 'updatePosts.php',
+        type: "POST",
+        data: post,
+        success: function(data) {
+          window.location.href = "http://localhost:8080/se319lab5/viewPosts.php"  ;
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
+
 }

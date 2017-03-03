@@ -14,12 +14,11 @@
   <?php
 
     session_start();
-
+    //echo $_SESSION["user"];
     if(isset($_SESSION["user"])){?>
 
-
-
     <div id="allPost">
+        <h1>Posts</h1>
       <?php
         $json = file_get_contents("posts.txt");
 
@@ -46,7 +45,7 @@
         echo $str;
        ?>
    </div>
-   <div id="user" style="display:none";>lee</div>
+   <div id="user" style="display:none";><?php echo $_SESSION["user"];?></div>
    <div id="lastPostID" style="display:none";><?php echo $lastPostID; ?></div>
 
 
@@ -69,29 +68,17 @@
        <textarea id="postDesc" rows = "3" cols = "80">Your text here</textarea>
        <br>
        <button type="button" onclick="makePost()">Make a Post</button>
-    </form>
-    <br/>
-    <button id="send" onclick="send">Send</button>
-    <form id="sendMessage" style="display:none;" >
-       <h1>Send a Message</h1>
-       To:<br>
-       <input type="text" id="to">
-       From:<br>
-       <input type="text" id="from">
-       <p>Body</p>
-       <textarea id="body" rows = "3" cols = "80">Your text here</textarea>
-       <br>
-       <button type="button" id="submitMessage">Submit</button>
-    </form>
 
   </div>
 
+  <br><br>
+  <a href="/se319lab5/inbox.php"><input type="button" value="Inbox"></a>
+  <a href="/se319lab5/sendMessage.php"><input type="button" value="Send Message"></a>
   <input type="button" value="Log Out" onclick="logOut()">
 
 
   <?php }else{?>
     <p>You have not logged in yet!</p>
   <?php }?>
-
 
 <?php  echo " </body> <script src=\"actions.js\"></script> </html>";?>
