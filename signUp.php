@@ -54,7 +54,7 @@
 
     fclose($myfile);
 
-    header("Location: login.php");
+    header("Location: index.html");
     exit;
   }
  ?>
