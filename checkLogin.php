@@ -28,7 +28,7 @@
     $data2 = "False";
 
     // echo "hello";
-    if ( login_succeed($username, $password)){
+    if ( login_succeed($username, $password) ){
       echo json_encode( $data1 ); // prints zero-based JS array: ["a","b","c"] // accessed in JS like: result[1] (returns "b")
     } else {
       echo json_encode( $data2 );

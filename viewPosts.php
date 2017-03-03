@@ -11,7 +11,11 @@
 
 
 
-  <?php //if(isset($_SESSION["user"])){?>
+  <?php
+
+    session_start();
+
+    if(isset($_SESSION["user"])){?>
 
 
 
@@ -47,7 +51,8 @@
 
 
 
-   <form id="updatePost" >
+
+   <form id="updatePost"  style="display:none"; >
       <h1>Make a Post</h1>
       Post Title:<br><input type="text" id="postTitle">
       <p>Text Area</p>
@@ -56,7 +61,7 @@
       <button type="button" onclick="updatePost()">Update Post</button>
    </form>
 
-
+    <br/>
     <form id="makeAPost" >
        <h1>Make a Post</h1>
        Post Title:<br><input type="text" id="postTitle">
@@ -65,7 +70,7 @@
        <br>
        <button type="button" onclick="makePost()">Make a Post</button>
     </form>
-
+    <br/>
     <button id="send" onclick="send">Send</button>
     <form id="sendMessage" style="display:none;" >
        <h1>Send a Message</h1>
@@ -83,10 +88,10 @@
 
   <input type="button" value="Log Out" onclick="logOut()">
 
-  <?php //}else{?>
 
-    <!-- <p>You have not logged in yet!</p> -->
-  <?php //}?>
+  <?php }else{?>
+    <p>You have not logged in yet!</p>
+  <?php }?>
 
 
 <?php  echo " </body> <script src=\"actions.js\"></script> </html>";?>

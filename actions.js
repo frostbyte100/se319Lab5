@@ -66,7 +66,6 @@ function makePost(){
 
 
 function login(){
-  console.log("Heer");
   if($("#username").val() == "" || $("#password").val() == ""){
     alert("You need a username or password");
     return;
@@ -80,10 +79,10 @@ function login(){
       success: function(data) {
         // console.log("call back");
         // console.log(data);
-        if(data=="False"){
-            window.location.href = "http://localhost:8080/se319lab5/login.php"
-        }else{
+        if(data=="True"){
           window.location.href = "http://localhost:8080/se319lab5/viewPosts.php"  ;
+        }else{
+          window.location.href = "http://localhost:8080/se319lab5/login.php";
         }
 
       },
