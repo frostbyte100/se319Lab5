@@ -38,7 +38,16 @@
           $str .= "<td>".$post["postTitle"]."</td>";
           $str .= "<td>".$post["postDesc"]."</td>";
           $str .= "<td>".$post["postTime"]."</td>";
-          $str .= "<td><button onclick='updatePost(post".$post["postID"].")'>Update Post</button></td>";
+          if($_SESSION["user"]==$post["user"]){
+            $str .= "<td><button onclick='updatePost(post".$post["postID"].")'>Update Post</button></td>";
+          }else{
+            if($_SESSION["user"]=="admin"){
+                $str .= "<td><button onclick='deletePost(post".$post["postID"].")'>Update Post</button></td>";
+            }else{
+              $str .= "<td></td>";
+            }
+          }
+
           $lastPostID = $post["postID"];
           $str .= "</tr>";
         }
@@ -46,7 +55,7 @@
         echo $str;
        ?>
    </div>
-   <div id="user" style="display:none";>lee</div>
+   <div id="user" style="display:none";><?php echo $_SESSION["user"]; ?></div>
    <div id="lastPostID" style="display:none";><?php echo $lastPostID; ?></div>
 
 
@@ -71,7 +80,10 @@
        <button type="button" onclick="makePost()">Make a Post</button>
     </form>
     <br/>
-    <button id="send" onclick="send">Send</button>
+    <button id="send" onclick="send">Send Message</button>
+    <button id="send" onclick="send">Send Message</button>
+    <button id="logout" onclick="send">Send Message</button>
+
     <form id="sendMessage" style="display:none;" >
        <h1>Send a Message</h1>
        To:<br>
