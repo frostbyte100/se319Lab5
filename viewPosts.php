@@ -55,8 +55,6 @@
    <div id="user" style="display:none";><?php echo $_SESSION["user"];?></div>
    <div id="lastPostID" style="display:none";><?php echo $lastPostID; ?></div>
 
-
-
     <br/>
 
     <?php if($_SESSION["user"]!="admin"){ ?>
@@ -79,6 +77,7 @@
          <textarea id="postDesc" rows = "3" cols = "80">Your text here</textarea>
          <br>
          <button type="button" onclick="makePost()">Make a Post</button>
+         <br>
       </form>
     <?php } ?>
     <br/>
