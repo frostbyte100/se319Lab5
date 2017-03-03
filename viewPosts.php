@@ -35,14 +35,14 @@
         foreach ($data as $post){
           // echo $post;
           $str .= "<tr>";
-          $str .= "<td>".$post["postTitle"]."</td>";
-          $str .= "<td>".$post["postDesc"]."</td>";
+          $str .= "<td id='".$post["postID"]."T'>".$post["postTitle"]."</td>";
+          $str .= "<td id='".$post["postID"]."D'>".$post["postDesc"]."</td>";
           $str .= "<td>".$post["postTime"]."</td>";
           if($_SESSION["user"]==$post["user"]){
             $str .= "<td><button onclick='updatePost(post".$post["postID"].")'>Update Post</button></td>";
           }else{
             if($_SESSION["user"]=="admin"){
-                $str .= "<td><button onclick='deletePost(post".$post["postID"].")'>Update Post</button></td>";
+                $str .= "<td><button onclick='deletePost(post".$post["postID"].")'>Delete Post</button></td>";
             }else{
               $str .= "<td></td>";
             }
@@ -60,29 +60,33 @@
 
 
 
-
-   <form id="updatePost"  style="display:none"; >
-      <h1>Make a Post</h1>
-      Post Title:<br><input type="text" id="postTitle">
-      <p>Text Area</p>
-      <textarea id="postDesc" rows = "3" cols = "80">Your text here</textarea>
-      <br>
-      <button type="button" onclick="updatePost()">Update Post</button>
-   </form>
-
     <br/>
-    <form id="makeAPost" >
-       <h1>Make a Post</h1>
-       Post Title:<br><input type="text" id="postTitle">
-       <p>Text Area</p>
-       <textarea id="postDesc" rows = "3" cols = "80">Your text here</textarea>
-       <br>
-       <button type="button" onclick="makePost()">Make a Post</button>
-    </form>
+    <?php if($_SESSION["user"]!="admin"){ ?>
+
+      <form id="updatePost"  style="display:none"; >
+         <h2>Update Post</h2>
+         Post Title:<br><input type="text" id="UpostTitle">
+         <p>Post Description</p>
+         <textarea id="UpostDesc" rows = "3" cols = "80">Your text here</textarea>
+         <br>
+         <button type="button" onclick="updatePost()">Update Post</button>
+      </form>
+
+      <button id="postMaker" onclick="showMakePost()">Make a Post</button>
+        <br/>
+      <form id="makeAPost"  style="display:none"; >
+         <h2>Make a Post</h2>
+         Post Title:<br><input type="text" id="postTitle">
+         <p>Post Description</p>
+         <textarea id="postDesc" rows = "3" cols = "80">Your text here</textarea>
+         <br>
+         <button type="button" onclick="makePost()">Make a Post</button>
+      </form>
+    <?php } ?>
     <br/>
-    <button id="send" onclick="send">Send Message</button>
-    <button id="send" onclick="send">Send Message</button>
-    <button id="logout" onclick="send">Send Message</button>
+    <button id="inbox" onclick="inbox()">Inbox</button>
+    <button id="send" onclick="send()">Send Message</button>
+    <input type="button" value="Log Out" onclick="logOut()">
 
     <form id="sendMessage" style="display:none;" >
        <h1>Send a Message</h1>
@@ -98,7 +102,7 @@
 
   </div>
 
-  <input type="button" value="Log Out" onclick="logOut()">
+
 
 
   <?php }else{?>

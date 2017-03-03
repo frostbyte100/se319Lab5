@@ -4,7 +4,21 @@ $( document ).ready(function() {
     console.log( "ready!" );
 });
 
+function deletePost(pID){
+  var post = {"action":2, "postID": pID };
+  $.ajax({
+      url: 'updatePosts.php',
+      type: "POST",
+      data: post,
+      success: function(data) {
+        console.log(data);
+      },
+      error: function(data) {
+        console.log(data);
+      }
+  });
 
+}
 function updatePost(pID){
 
 
@@ -18,7 +32,7 @@ function updatePost(pID){
 
   var postTime = time.toString();
 
-  var post = {"isNew":0, "postID": postID, "user": user, "postTitle":postTitle,"postDesc":postDesc,"postTime":postTime };
+  var post = {"action":0, "postID": postID, "user": user, "postTitle":postTitle,"postDesc":postDesc,"postTime":postTime };
   console.log(post);
 
   $.ajax({
@@ -36,6 +50,12 @@ function updatePost(pID){
 }
 
 
+function showMakePost(){
+  $("#postMaker").css("display","none");
+  $("#makeAPost").css("display", "inline");
+
+
+}
 
 
 function makePost(){
@@ -47,7 +67,7 @@ function makePost(){
 
   var postTime = time.toString();
 
-  var post = {"isNew": 1, "postID": postID, "user": user, "postTitle":postTitle,"postDesc":postDesc,"postTime":postTime };
+  var post = {"action": 1, "postID": postID, "user": user, "postTitle":postTitle,"postDesc":postDesc,"postTime":postTime };
   console.log(post);
 
   $.ajax({
