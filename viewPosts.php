@@ -9,8 +9,6 @@
           <body>";
  ?>
 
-
-
   <?php
 
     session_start();
@@ -39,10 +37,10 @@
           $str .= "<td id='".$post["postID"]."D'>".$post["postDesc"]."</td>";
           $str .= "<td>".$post["postTime"]."</td>";
           if($_SESSION["user"]==$post["user"]){
-            $str .= "<td><button onclick='updatePost(post".$post["postID"].")'>Update Post</button></td>";
+            $str .= "<td><button onclick=\"seeUpDatePostOption('".$post["postID"]."')\">Update Post</button></td>";
           }else{
             if($_SESSION["user"]=="admin"){
-                $str .= "<td><button onclick='deletePost(post".$post["postID"].")'>Delete Post</button></td>";
+                $str .= "<td><button onclick=\"deletePost('".$post["postID"]."')\">Delete Post</button></td>";
             }else{
               $str .= "<td></td>";
             }
@@ -73,7 +71,7 @@
       </form>
 
       <button id="postMaker" onclick="showMakePost()">Make a Post</button>
-        <br/>
+      <br/>
       <form id="makeAPost"  style="display:none"; >
          <h2>Make a Post</h2>
          Post Title:<br><input type="text" id="postTitle">
