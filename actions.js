@@ -121,3 +121,16 @@ function signUp(){
 
 
 }
+
+function logOut(){
+    $.ajax({
+        url: 'logout.php',
+        type: "GET",
+        success: function(data) {
+          window.location.href = "http://localhost:8080/se319lab5/index.html";
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
+}

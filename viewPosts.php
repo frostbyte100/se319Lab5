@@ -96,6 +96,9 @@
        <button type="button" id="submitMessage">Submit</button>
     </form>
 
+  </div>
+
+  <input type="button" value="Log Out" onclick="logOut()">
 
 
   <?php }else{?>
