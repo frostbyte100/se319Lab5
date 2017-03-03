@@ -11,8 +11,10 @@ function deletePost(pID){
       data: post,
       success: function(data) {
         console.log(data);
-        $("#allPost").html(createTable(data));
-        $("#lastPostID").html(data.length-1);
+        var json = JSON.parse(data);
+        console.log(json);
+        $("#allPost").html(createTable(json,user));
+        $("#lastPostID").html(json.length-1);
       },
       error: function(data) {
         console.log(data);
@@ -23,11 +25,45 @@ function deletePost(pID){
 
 function seeUpDatePostOption(pID){
   $("#updatePost").css("display","inline");
-  $("#postMaker").css("display","none");
-  $("#makeAPost").css("display", "inline");
+  // $("#postMaker").css("display","none");
+  // $("#makeAPost").css("display", "inline");
+}
+
+
+function makePost(){
+  var user = $("#user").text();
+  var postID = parseInt($("#lastPostID").text()) + 1;
+  var postTitle = $("#postTitle").val();
+  var postDesc = $("#postDesc").val();
+  var time = new Date();
+
+  var postTime = time.toString();
+
+  var post = {"action": 1, "postID": postID, "user": user, "postTitle":postTitle,"postDesc":postDesc,"postTime":postTime };
+
+
+  $.ajax({
+      url: 'updatePosts.php',
+      type: "POST",
+      data: post,
+      success: function(data) {
+        console.log(data);
+        var json = JSON.parse(data);
+        console.log(json);
+        $("#allPost").html(createTable(json,user));
+        $("#lastPostID").html(json.length-1);
+        $("#postMaker").css("display","inline");
+        $("#makeAPost").css("display", "none");
+      },
+      error: function(data) {
+          console.log(data);
+
+      }
+  });
 }
 
 function updatePost(pID){
+
 
   var user = $("#user").text();
   var postID = parseInt($("#lastPostID").text());
@@ -46,10 +82,15 @@ function updatePost(pID){
       data: post,
       success: function(data) {
         console.log(data);
+        var json = JSON.parse(data);
+        console.log(json);
+        $("#allPost").html(createTable(json, user));
+        $("#lastPostID").html(json.length-1);
 
 
-        $("#allPost").html(createTable(data));
-        $("#lastPostID").html(data.length-1);
+        $("#updatePost").css("display","none");
+        $("#postMaker").css("display","inline");
+        $("#makeAPost").css("display", "none");
       },
       error: function(data) {
           console.log(data);
@@ -58,7 +99,7 @@ function updatePost(pID){
   });
 }
 
-function createTable(data){
+function createTable(data, user){
   var str = "";
   var lastPostID = 0;
   str  = "<table  border=2>";
@@ -91,38 +132,11 @@ function createTable(data){
 function showMakePost(){
   $("#postMaker").css("display","none");
   $("#makeAPost").css("display", "inline");
-  $("#updatePost").css("display","none");
 
 
 }
 
 
-function makePost(){
-  var user = $("#user").text();
-  var postID = parseInt($("#lastPostID").text());
-  var postTitle = $("#postTitle").val();
-  var postDesc = $("#postDesc").val();
-  var time = new Date();
-
-  var postTime = time.toString();
-
-  var post = {"action": 1, "postID": postID, "user": user, "postTitle":postTitle,"postDesc":postDesc,"postTime":postTime };
-
-
-  $.ajax({
-      url: 'updatePosts.php',
-      type: "POST",
-      data: post,
-      success: function(data) {
-        $("#allPost").html(createTable(data));
-        $("#lastPostID").html(data.length-1);
-      },
-      error: function(data) {
-          console.log(data);
-
-      }
-  });
-}
 
 function login(){
   if($("#username").val() == "" || $("#password").val() == ""){
@@ -154,28 +168,6 @@ function login(){
 
 }
 
-function signUp(){
-
-  // window.location.href = "http://localhost:8080/se319lab5/login.php"  ;
-  // var info = {"username": $("#username").val(), "password": $("#password").val() };
-  //
-  // $.ajax({
-  //     url: 'Signup.php',
-  //     type: "POST",
-  //     data: info,
-  //     success: function(data) {
-  //       console.log(data);
-  //
-  //       $("#signUpMenu").css("display","none");
-  //       $("#loginMenu").css("display","block");
-  //     },
-  //     error: function(data) {
-  //
-  //     }
-  // });
-
-
-}
 
 function logOut(){
     $.ajax({
