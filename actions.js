@@ -5,6 +5,38 @@ $( document ).ready(function() {
 });
 
 
+function updatePost(pID){
+
+
+
+
+  var user = $("#user").text();
+  var postID = parseInt($("#lastPostID").text());
+  var postTitle = $("#postTitle").val();
+  var postDesc = $("#postDesc").val();
+  var time = new Date();
+
+  var postTime = time.toString();
+
+  var post = {"isNew":0, "postID": postID, "user": user, "postTitle":postTitle,"postDesc":postDesc,"postTime":postTime };
+  console.log(post);
+
+  $.ajax({
+      url: 'updatePosts.php',
+      type: "POST",
+      data: post,
+      success: function(data) {
+        window.location.href = "http://localhost:8080/se319lab5/viewPosts.php"  ;
+      },
+      error: function(data) {
+          console.log(data);
+
+      }
+  });
+}
+
+
+
 
 function makePost(){
   var user = $("#user").text();

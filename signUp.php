@@ -36,7 +36,7 @@
   $private_key = $privatekey;
   $public_key = $publickey;
 
-  if(isset($_POST["username"]) && isset($_POST["username"])){
+  if(isset($_POST["username"]) && isset($_POST["password"])){
 
     $username = $_POST["username"];
     $password = $_POST["password"];
@@ -52,10 +52,9 @@
     fwrite($myfile, $line);
 
 
-    fclose($myfile)
+    fclose($myfile);
 
     header("Location: login.php");
     exit;
-
   }
  ?>

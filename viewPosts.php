@@ -47,6 +47,14 @@
 
 
 
+   <form id="updatePost" >
+      <h1>Make a Post</h1>
+      Post Title:<br><input type="text" id="postTitle">
+      <p>Text Area</p>
+      <textarea id="postDesc" rows = "3" cols = "80">Your text here</textarea>
+      <br>
+      <button type="button" onclick="updatePost()">Update Post</button>
+   </form>
 
 
     <form id="makeAPost" >
