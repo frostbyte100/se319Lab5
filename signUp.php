@@ -52,9 +52,9 @@
     fwrite($myfile, $line);
 
 
-    fclose($myfile)
+    fclose($myfile);
 
-    header("Location: login.php");
+    header("Location: index.html");
     exit;
 
   }
