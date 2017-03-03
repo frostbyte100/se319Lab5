@@ -29,7 +29,7 @@
    $postID = $_POST["postID"];
    $data[$postID] = array("postID"=> $_POST["postID"], "user"=> $_POST["user"], "postTitle"=> $_POST["postTitle"], "postDesc"=> $_POST["postDesc"], "postTime"=> $_POST["postTime"]);
 
-   file_put_contents('posts.txt', implode($data));
+   file_put_contents('posts.txt', json_encode($data));
    echo json_encode( $data );
 
  }
