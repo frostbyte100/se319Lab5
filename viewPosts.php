@@ -81,6 +81,7 @@
 
   </div>
 
+  <input type="button" value="Log Out" onclick="logOut()">
 
   <?php //}else{?>
 
