@@ -129,7 +129,7 @@ function sendMessage(){
     console.log(post);
 
     $.ajax({
-        url: 'updatePosts.php',
+        url: 'send.php',
         type: "POST",
         data: post,
         success: function(data) {
