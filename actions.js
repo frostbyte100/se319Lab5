@@ -84,7 +84,6 @@ function updatePost(pID){
         var json = JSON.parse(data);
         console.log(json);
         $("#allPost").html(createTable(json, user));
-        $("#lastPostID").html(parseInt(postID) + 1);
 
         $("#updatePost").css("display","none");
         $("#postMaker").css("display","inline");

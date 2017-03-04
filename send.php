@@ -21,7 +21,7 @@
 
     if($json == ""){
         $data = [];
-        array_push($data,$newMessage);
+        array_unshift($data,$newMessage);
         echo "this was empty";
     } else {
         echo "this was not empty";
