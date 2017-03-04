@@ -32,7 +32,6 @@ function seeUpDatePostOption(pID){
   // $("#makeAPost").css("display", "inline");
 }
 
-
 function makePost(){
   var user = $("#user").text();
   var postID = parseInt($("#lastPostID").text()) + 1;
@@ -43,7 +42,6 @@ function makePost(){
   var postTime = time.toString();
 
   var post = {"action": 1, "postID": postID, "user": user, "postTitle":postTitle,"postDesc":postDesc,"postTime":postTime };
-
 
   $.ajax({
       url: 'updatePosts.php',
@@ -76,7 +74,6 @@ function updatePost(pID){
   var postTime = time.toString();
 
   var post = {"action":0, "postID": postID, "user": user, "postTitle":postTitle,"postDesc":postDesc,"postTime":postTime };
-  console.log(post);
 
   $.ajax({
       url: 'updatePosts.php',
@@ -88,7 +85,6 @@ function updatePost(pID){
         console.log(json);
         $("#allPost").html(createTable(json, user));
         $("#lastPostID").html(parseInt(postID) + 1);
-
 
         $("#updatePost").css("display","none");
         $("#postMaker").css("display","inline");
@@ -137,8 +133,6 @@ function showMakePost(){
 
 }
 
-
-
 function login(){
   if($("#username").val() == "" || $("#password").val() == ""){
     alert("You need a username or password");
@@ -166,9 +160,7 @@ function login(){
       }
   });
 
-
 }
-
 
 function logOut(){
     $.ajax({
@@ -185,17 +177,16 @@ function logOut(){
 
 function sendMessage(){
     var fromUser = $("#user").text();
-    var toUser = $("#sendTo").text();
+    var toUser = $("#sendTo").val();
     var message = $("#messageBody").val();
     var post = {"From": fromUser, "To": toUser, "Body": message};
-    console.log(post);
 
     $.ajax({
         url: 'send.php',
         type: "POST",
         data: post,
         success: function(data) {
-          window.location.href = "http://localhost:8080/se319lab5/viewPosts.php"  ;
+          window.location.href = "http://localhost:8080/se319lab5/viewPosts.php";
         },
         error: function(data) {
             console.log(data);

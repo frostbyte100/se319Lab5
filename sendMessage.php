@@ -10,21 +10,23 @@
           ";
 
  session_start();
- //echo $_SESSION["user"];
+
  if(isset($_SESSION["user"])){?>
 
      <form id="sendMessage">
          To: <input type="text" id="sendTo">
          <p>Message:</p>
          <textarea id="messageBody" rows="3" cols="80">Your message here</textarea>
-         <br><input type="button" onclick="" value="Send">
+         <br><input type="button" onclick="sendMessage()" value="Send">
          <a href="/se319lab5/viewPosts.php"><input type="button" value="Back"></a>
     </form>
 
     <div id="user" style="display:none";><?php echo $_SESSION["user"];?></div>
 
+    <div id="showError"></div>
+
 <?php }else{?>
 <p>You are not logged in!</p>
 <?php }?>
 
-<?php  echo " </body> <script src=\"actions.js\"></script> </html>";?>
+<?php  echo "</body> <script src=\"actions.js\"></script> </html>";?>

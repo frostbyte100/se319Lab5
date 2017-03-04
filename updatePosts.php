@@ -3,6 +3,7 @@
 
  $action = $_POST["action"];
  if($action==1){
+
    //ADDING a post
    $postID = $_POST["postID"];
    $user = $_POST["user"];
