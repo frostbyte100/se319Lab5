@@ -11,9 +11,9 @@
 
   <?php
 
+
     session_start();
-    //echo $_SESSION["user"];
-    if(isset($_SESSION["user"])){?>
+    if( isset($_SESSION["user"])){?>
 
     <div id="allPost">
         <h1>Posts</h1>
@@ -29,27 +29,42 @@
         $str .= "<tr>";
         $str .= "<td>PostTitle</td><td>PostDesc</td><td>PostTime</td><td>Update</td>";
         $str .= "</tr>";
-        foreach ($data as $post){
-          // echo $post;
+        if($json==""){
           $str .= "<tr>";
-          $str .= "<td id='".$post["postID"]."T'>".$post["postTitle"]."</td>";
-          $str .= "<td id='".$post["postID"]."D'>".$post["postDesc"]."</td>";
-          $str .= "<td>".$post["postTime"]."</td>";
-          if($_SESSION["user"]==$post["user"]){
-            $str .= "<td><button onclick=\"seeUpDatePostOption('".$post["postID"]."')\">Update Post</button></td>";
-          }else{
-            if($_SESSION["user"]=="admin"){
-                $str .= "<td><button onclick=\"deletePost('".$post["postID"]."')\">Delete Post</button></td>";
+          $str .= "<td></td>";
+          $str .= "<td></td>";
+          $str .= "<td></td>";
+          $str .= "<td></td>";
+
+          $lastPostID = -1;
+          $str .= "</tr>";
+        }else{
+
+          foreach ($data as $post){
+            // echo $post;
+            $str .= "<tr>";
+            $str .= "<td id='".$post["postID"]."T'>".$post["postTitle"]."</td>";
+            $str .= "<td id='".$post["postID"]."D'>".$post["postDesc"]."</td>";
+            $str .= "<td>".$post["postTime"]."</td>";
+            if($_SESSION["user"]==$post["user"]){
+              $str .= "<td><button onclick=\"seeUpDatePostOption('".$post["postID"]."')\">Update Post</button></td>";
             }else{
-              $str .= "<td></td>";
+              if($_SESSION["user"]=="admin"){
+                  $str .= "<td><button onclick=\"deletePost('".$post["postID"]."')\">Delete Post</button></td>";
+              }else{
+                $str .= "<td></td>";
+              }
             }
+
+            $lastPostID = $post["postID"];
+            $str .= "</tr>";
           }
 
-          $lastPostID = $post["postID"];
-          $str .= "</tr>";
+
         }
         $str .= "</table>";
         echo $str;
+
        ?>
    </div>
    <div id="user" style="display:none";><?php echo $_SESSION["user"];?></div>
@@ -63,7 +78,7 @@
          <h2>Update Post</h2>
          Post Title:<br><input type="text" id="UpostTitle">
          <p>Post Description</p>
-         <textarea id="UpostDesc" rows = "3" cols = "80">Your text here</textarea>
+         <textarea id="UpostDesc" rows = "3" cols = "80"></textarea>
          <br>
          <button type="button" onclick="updatePost()">Update Post</button>
       </form>
@@ -74,7 +89,7 @@
          <h2>Make a Post</h2>
          Post Title:<br><input type="text" id="postTitle">
          <p>Post Description</p>
-         <textarea id="postDesc" rows = "3" cols = "80">Your text here</textarea>
+         <textarea id="postDesc" rows = "3" cols = "80"></textarea>
          <br>
          <button type="button" onclick="makePost()">Make a Post</button>
          <br>

@@ -3,7 +3,7 @@ $( document ).ready(function() {
 });
 
 function deletePost(pID){
-
+  var user = $("#user").text();
   var post = {"action":2, "postID": parseInt(pID) };
   $.ajax({
       url: 'updatePosts.php',
@@ -11,8 +11,12 @@ function deletePost(pID){
       data: post,
       success: function(data) {
         console.log(data);
-        $("#allPost").html(createTable(data));
-        $("#lastPostID").html(data.length-1);
+        var json = JSON.parse(data);
+        console.log(json);
+        var d = createTable(json,user);
+        console.log(d);
+        $("#allPost").html( d );
+        $("#lastPostID").html(json.length-1);
       },
       error: function(data) {
         console.log(data);
@@ -23,8 +27,39 @@ function deletePost(pID){
 
 function seeUpDatePostOption(pID){
   $("#updatePost").css("display","inline");
-  $("#postMaker").css("display","none");
-  $("#makeAPost").css("display", "inline");
+  // $("#postMaker").css("display","none");
+  // $("#makeAPost").css("display", "inline");
+}
+
+function makePost(){
+  var user = $("#user").text();
+  var postID = parseInt($("#lastPostID").text()) + 1;
+  var postTitle = $("#postTitle").val();
+  var postDesc = $("#postDesc").val();
+  var time = new Date();
+
+  var postTime = time.toString();
+
+  var post = {"action": 1, "postID": postID, "user": user, "postTitle":postTitle,"postDesc":postDesc,"postTime":postTime };
+
+  $.ajax({
+      url: 'updatePosts.php',
+      type: "POST",
+      data: post,
+      success: function(data) {
+        console.log(data);
+        var json = JSON.parse(data);
+        console.log(json);
+        $("#allPost").html(createTable(json,user));
+        $("#lastPostID").html(postID);
+        $("#postMaker").css("display","inline");
+        $("#makeAPost").css("display", "none");
+      },
+      error: function(data) {
+          console.log(data);
+
+      }
+  });
 }
 
 function updatePost(pID){
@@ -45,9 +80,14 @@ function updatePost(pID){
       data: post,
       success: function(data) {
         console.log(data);
+        var json = JSON.parse(data);
+        console.log(json);
+        $("#allPost").html(createTable(json, user));
+        $("#lastPostID").html(parseInt(postID) + 1);
 
-        $("#allPost").html(createTable(data));
-        $("#lastPostID").html(data.length-1);
+        $("#updatePost").css("display","none");
+        $("#postMaker").css("display","inline");
+        $("#makeAPost").css("display", "none");
       },
       error: function(data) {
           console.log(data);
@@ -56,29 +96,28 @@ function updatePost(pID){
   });
 }
 
-function createTable(data){
+function createTable(data, user){
   var str = "";
   var lastPostID = 0;
   str  = "<table  border=2>";
   str += "<tr>";
   str += "<td>PostTitle</td><td>PostDesc</td><td>PostTime</td><td>Update</td>";
   str += "</tr>";
-  var num = 0;
-  for (num=0;num<data.length;num++) {
+
+  for (var obj in data) {
     str += "<tr>";
-    str += "<td id='"+data[num]["postID"]+"T'>"+data[num]["postTitle"]+"</td>";
-    str += "<td id='"+data[num]["postID"]+"D'>"+data[num]["postDesc"]+"</td>";
-    str += "<td>"+data[num]["postTime"]+"</td>";
-    if(user==data[num]["user"]){
-      str += "<td><button onclick=\"seeUpDatePostOption('"+data[num]["postID"]+"')\">Update Post</button></td>";
+    str += "<td id='"+data[obj]["postID"]+"T'>"+data[obj]["postTitle"]+"</td>";
+    str += "<td id='"+data[obj]["postID"]+"D'>"+data[obj]["postDesc"]+"</td>";
+    str += "<td>"+data[obj]["postTime"]+"</td>";
+    if(user==data[obj]["user"]){
+      str += "<td><button onclick=\"seeUpDatePostOption('"+data[obj]["postID"]+"')\">Update Post</button></td>";
     }else{
       if(user=="admin"){
-          str += "<td><button onclick=\"deletePost('"+data[num]["postID"]+"')\">Delete Post</button></td>";
+          str += "<td><button onclick=\"deletePost('"+data[obj]["postID"]+"')\">Delete Post</button></td>";
       }else{
         str += "<td></td>";
       }
     }
-
     str += "</tr>";
   }
 
@@ -89,37 +128,8 @@ function createTable(data){
 function showMakePost(){
   $("#postMaker").css("display","none");
   $("#makeAPost").css("display", "inline");
-  $("#updatePost").css("display","none");
 
 
-}
-
-
-function makePost(){
-  var user = $("#user").text();
-  var postID = parseInt($("#lastPostID").text());
-  var postTitle = $("#postTitle").val();
-  var postDesc = $("#postDesc").val();
-  var time = new Date();
-
-  var postTime = time.toString();
-
-  var post = {"action": 1, "postID": postID, "user": user, "postTitle":postTitle,"postDesc":postDesc,"postTime":postTime };
-
-
-  $.ajax({
-      url: 'updatePosts.php',
-      type: "POST",
-      data: post,
-      success: function(data) {
-        $("#allPost").html(createTable(data));
-        $("#lastPostID").html(data.length-1);
-      },
-      error: function(data) {
-          console.log(data);
-
-      }
-  });
 }
 
 function login(){
@@ -149,30 +159,6 @@ function login(){
       }
   });
 
-
-}
-
-function signUp(){
-
-  // window.location.href = "http://localhost:8080/se319lab5/login.php"  ;
-  // var info = {"username": $("#username").val(), "password": $("#password").val() };
-  //
-  // $.ajax({
-  //     url: 'Signup.php',
-  //     type: "POST",
-  //     data: info,
-  //     success: function(data) {
-  //       console.log(data);
-  //
-  //       $("#signUpMenu").css("display","none");
-  //       $("#loginMenu").css("display","block");
-  //     },
-  //     error: function(data) {
-  //
-  //     }
-  // });
-
-
 }
 
 function logOut(){
@@ -199,11 +185,7 @@ function sendMessage(){
         type: "POST",
         data: post,
         success: function(data) {
-          //window.location.href = "http://localhost:8080/se319lab5/viewPosts.php";
-        //   var json = JSON.parse(data);
-          console.log(data);
-         // console.log(json);
-          $("#showError").html(data);
+          window.location.href = "http://localhost:8080/se319lab5/viewPosts.php";
         },
         error: function(data) {
             console.log(data);
