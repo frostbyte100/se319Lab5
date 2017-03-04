@@ -84,6 +84,7 @@
       </form>
 
       <button id="postMaker" onclick="showMakePost()">Make a Post</button>
+      <div id="updatPostID" style="display:none";></div>
       <br/>
       <form id="makeAPost"  style="display:none"; >
          <h2>Make a Post</h2>
