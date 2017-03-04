@@ -1,0 +1,5 @@
+Leelabari Fulbel
+ - signUp.php, secHelper.php, login.php, checkLogin.php, updatePosts.php, most of action.js
+
+Matthew Schaffer
+ - index.html, inbox.php, logout.php, sendMessage.php, send.php, part of action.js
