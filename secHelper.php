@@ -4,8 +4,6 @@ $path = 'phpseclib';
   set_include_path(get_include_path() . PATH_SEPARATOR . $path);
   include_once('Crypt/RSA.php');
 
-
-
 //Function for encrypting with RSA
 function rsa_encrypt($string, $public_key)
 {
@@ -29,6 +27,5 @@ function rsa_decrypt($string, $private_key)
     //Return the decrypted version
     return $cipher->decrypt($string);
 }
-
 
  ?>

@@ -13,7 +13,9 @@
         }
 
       }
-      fclose($myfile);
+      if(is_resource($myfile)){
+          fclose($myfile);
+      }
       return false;
     }
 

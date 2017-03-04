@@ -1,6 +1,7 @@
 <?php
+    include_once("secHelper.php");
 
-  echo "<html
+    echo "<html
         <head>
            <script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js\"></script>
            <title>Matt and Lee's Project 5</title>
@@ -10,11 +11,22 @@
           ";
 
  session_start();
- //echo $_SESSION["user"];
+
  if(isset($_SESSION["user"])){?>
 
 <div id="messages">
     <?php
+
+        $myfile = @fopen("users.txt", "r") or die("Unable to open file!");
+
+        while (($line = @fgets($myfile)) !== false) {
+            $userInfo = explode(":", $line);
+
+            if($userInfo[0] == $_SESSION["user"]){
+                $key = $userInfo[3];
+            }
+        }
+
         $json = file_get_contents("messages.txt");
         $json = str_replace('},]', "}]", $json);
         $data = json_decode($json, true);
@@ -24,12 +36,14 @@
         $str .= "<td>From</td><td>Message</td>";
         $str .= "</tr>";
 
-        foreach ($data as $message){
-            if($message["To"] == $_SESSION["user"]){
-                $str .= "<tr>";
-                $str .= "<td>".$message["From"]."</td>";
-                $str .= "<td>".$message["Body"]."</td>";
-                $str .= "</tr>";
+        if(isset($data)){
+            foreach ($data as $message){
+                if($message["To"] == $_SESSION["user"]){
+                    $str .= "<tr>";
+                    $str .= "<td>".$message["From"]."</td>";
+                    $str .= "<td>".rsa_decrypt(utf8_decode($message["Body"]), $key)."</td>";
+                    $str .= "</tr>";
+                }
             }
         }
         $str .=  "</table>";

@@ -3,16 +3,10 @@
 
  $action = $_POST["action"];
  if($action==1){
-   $postID = $_POST["postID"];
-   $user = $_POST["user"];
-   $postTitle = $_POST["postTitle"];
-   $postDesc = $_POST["postDesc"];
-   $postTime = $_POST["postTime"];
 
    $json = file_get_contents("posts.txt");
 
-   $json=str_replace('},]',"}]",$json);
-   $data = json_decode($json, true);
+   $json = str_replace('},]',"}]",$json);
 
    $newPost = array("postID"=> $_POST["postID"], "user"=> $_POST["user"], "postTitle"=> $_POST["postTitle"], "postDesc"=> $_POST["postDesc"], "postTime"=> $_POST["postTime"]);
 

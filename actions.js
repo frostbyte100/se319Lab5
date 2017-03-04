@@ -38,7 +38,6 @@ function updatePost(pID){
   var postTime = time.toString();
 
   var post = {"action":0, "postID": postID, "user": user, "postTitle":postTitle,"postDesc":postDesc,"postTime":postTime };
-  console.log(post);
 
   $.ajax({
       url: 'updatePosts.php',
@@ -46,7 +45,6 @@ function updatePost(pID){
       data: post,
       success: function(data) {
         console.log(data);
-
 
         $("#allPost").html(createTable(data));
         $("#lastPostID").html(data.length-1);
@@ -192,17 +190,20 @@ function logOut(){
 
 function sendMessage(){
     var fromUser = $("#user").text();
-    var toUser = $("#sendTo").text();
+    var toUser = $("#sendTo").val();
     var message = $("#messageBody").val();
     var post = {"From": fromUser, "To": toUser, "Body": message};
-    console.log(post);
 
     $.ajax({
         url: 'send.php',
         type: "POST",
         data: post,
         success: function(data) {
-          window.location.href = "http://localhost:8080/se319lab5/viewPosts.php"  ;
+          //window.location.href = "http://localhost:8080/se319lab5/viewPosts.php";
+        //   var json = JSON.parse(data);
+          console.log(data);
+         // console.log(json);
+          $("#showError").html(data);
         },
         error: function(data) {
             console.log(data);
