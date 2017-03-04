@@ -11,9 +11,9 @@
 
   <?php
 
+
     session_start();
-    //echo $_SESSION["user"];
-    if(isset($_SESSION["user"])){?>
+    if( isset($_SESSION["user"])){?>
 
     <div id="allPost">
         <h1>Posts</h1>

@@ -3,7 +3,7 @@ $( document ).ready(function() {
 });
 
 function deletePost(pID){
-
+  var user = $("#user").text();
   var post = {"action":2, "postID": parseInt(pID) };
   $.ajax({
       url: 'updatePosts.php',
@@ -13,7 +13,9 @@ function deletePost(pID){
         console.log(data);
         var json = JSON.parse(data);
         console.log(json);
-        $("#allPost").html(createTable(json,user));
+        var d = createTable(json,user);
+        console.log(d);
+        $("#allPost").html( d );
         $("#lastPostID").html(json.length-1);
       },
       error: function(data) {
@@ -51,7 +53,7 @@ function makePost(){
         var json = JSON.parse(data);
         console.log(json);
         $("#allPost").html(createTable(json,user));
-        $("#lastPostID").html(json.length-1);
+        $("#lastPostID").html(postID);
         $("#postMaker").css("display","inline");
         $("#makeAPost").css("display", "none");
       },
@@ -85,7 +87,7 @@ function updatePost(pID){
         var json = JSON.parse(data);
         console.log(json);
         $("#allPost").html(createTable(json, user));
-        $("#lastPostID").html(json.length-1);
+        $("#lastPostID").html(parseInt(postID) + 1);
 
 
         $("#updatePost").css("display","none");
@@ -106,22 +108,21 @@ function createTable(data, user){
   str += "<tr>";
   str += "<td>PostTitle</td><td>PostDesc</td><td>PostTime</td><td>Update</td>";
   str += "</tr>";
-  var num = 0;
-  for (num=0;num<data.length;num++) {
+
+  for (var obj in data) {
     str += "<tr>";
-    str += "<td id='"+data[num]["postID"]+"T'>"+data[num]["postTitle"]+"</td>";
-    str += "<td id='"+data[num]["postID"]+"D'>"+data[num]["postDesc"]+"</td>";
-    str += "<td>"+data[num]["postTime"]+"</td>";
-    if(user==data[num]["user"]){
-      str += "<td><button onclick=\"seeUpDatePostOption('"+data[num]["postID"]+"')\">Update Post</button></td>";
+    str += "<td id='"+data[obj]["postID"]+"T'>"+data[obj]["postTitle"]+"</td>";
+    str += "<td id='"+data[obj]["postID"]+"D'>"+data[obj]["postDesc"]+"</td>";
+    str += "<td>"+data[obj]["postTime"]+"</td>";
+    if(user==data[obj]["user"]){
+      str += "<td><button onclick=\"seeUpDatePostOption('"+data[obj]["postID"]+"')\">Update Post</button></td>";
     }else{
       if(user=="admin"){
-          str += "<td><button onclick=\"deletePost('"+data[num]["postID"]+"')\">Delete Post</button></td>";
+          str += "<td><button onclick=\"deletePost('"+data[obj]["postID"]+"')\">Delete Post</button></td>";
       }else{
         str += "<td></td>";
       }
     }
-
     str += "</tr>";
   }
 
