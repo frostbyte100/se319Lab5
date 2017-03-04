@@ -26,8 +26,9 @@ function deletePost(pID){
 }
 
 function seeUpDatePostOption(pID){
+  $("#updatPostID").html(pID);
   $("#updatePost").css("display","inline");
-  // $("#postMaker").css("display","none");
+  //$("#postMaker").css("display","none");
   // $("#makeAPost").css("display", "inline");
 }
 
@@ -65,7 +66,7 @@ function makePost(){
 function updatePost(pID){
 
   var user = $("#user").text();
-  var postID = parseInt($("#lastPostID").text());
+  var postID = parseInt($("#updatPostID").text());
   var postTitle = $("#UpostTitle").val();
   var postDesc = $("#UpostDesc").val();
   var time = new Date();
